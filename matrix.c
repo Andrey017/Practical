@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    printf("Result: ");
+    printf("Result:");
 
     /*Output the result*/
     for (i=0; i<N; i++){
