@@ -1,24 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int **A;
-int **C;
-int **D;
 
 int main(int argc, char *argv[])
 {
-    int N, M, i, j, t, k, s, min, di, dj, R, H, Z, y;
+    int N, M, i, j, t, k, s, min, di, dj, R, H, Z, y, l=0, p=0, o;
     N= atoi(argv[1]);
     M= atoi(argv[2]);
-    
-    /*Creating the first array*/
-    A = (int **) malloc(sizeof(int)*N);
-    for (i=0; i<N; i++){
-        A[i]=(int*)malloc(sizeof(int*)*M);
-    }
-    if(A == NULL) exit(1);
+    R=N-1;
+    H=M-1;
+    o= argc;
 
-    
+    /*Creating the first array*/
+    int **A = (int **) malloc(sizeof(int)*N);
+            for (i=0; i<N; i++){
+                A[i]=(int*)malloc(sizeof(int*)*M);
+            }
+        if(A == NULL) exit(1);
+
     if (N>3 & M>4){
         for (i=0; i<N; i++){
             for (j=0; j<M; j++){
@@ -41,6 +40,7 @@ int main(int argc, char *argv[])
         A[0][j]= A[N-1][j];
         A[N-1][j]= t;
     }
+
     /*Change the elements of the array*/
     for (j=0; j<M; j++){
         k= A[0][j];
@@ -70,9 +70,38 @@ int main(int argc, char *argv[])
             }
         }
     }
+    min=o;
+    /*Delete the row and the column with the smallest element*/
+    int **B = (int **) malloc(sizeof(int)*N);
+            for (l=0; l<N; l++){
+                B[l]=(int*)malloc(sizeof(int*)*M);
+            }
+        if(B == NULL) exit(1);
 
-    R=N;
-    H=M;
+    l=0;
+    p=0;
+
+    for(i=0; i<N; i++){
+        if (i == di){
+            continue;
+        }
+        for(j=0; j<M; j++){
+            if (j == dj){
+                continue;
+            }
+            B[l][p]= A[i][j];
+            p++;
+        }
+        l++;
+        p=0;
+    }
+
+    for (l=0; l<R; l++){
+        for (p=0; p<H; p++){
+            printf("\t%d", *(*(B+l)+p));
+        }
+        puts("\n");
+    }
 
     printf("\tEnter the number of columns =");
     scanf("%d", &Z);
@@ -80,36 +109,36 @@ int main(int argc, char *argv[])
     printf("\n");
 
     /*We introduce the second matrix*/
-    C = (int **) malloc(sizeof(int)*H);
-    for (i=0; i<H; i++){
-        C[i]= (int*) malloc(sizeof(int*)*Z);
-    }
-    if(C == NULL) exit(1);
+    int    **C = (int **) malloc(sizeof(int)*H);
+            for (l=0; l<H; l++){
+                C[l]= (int*) malloc(sizeof(int*)*Z);
+            }
+            if(C == NULL) exit(1);
 
 
-    for (i=0; i<H; i++){
-        for (j=0; j<Z; j++){
-            printf("\tEnter the number [%d][%d] =", i, j);
-            scanf("%d", *(C+i)+j);
+    for (l=0; l<H; l++){
+        for (p=0; p<Z; p++){
+            printf("\tEnter the number [%d][%d] =", l, p);
+            scanf("%d", *(C+l)+p);
         }
         puts("\n");
     }
 
-    
-    D = (int **) malloc(sizeof(int)*N);
-    for (i=0; i<N; i++){
-        D[i]= (int*) malloc(sizeof(int*)*Z);
+
+int    **D = (int **) malloc(sizeof(int)*R);
+    for (l=0; l<R; l++){
+        D[l]= (int*) malloc(sizeof(int*)*Z);
     }
     if (D == NULL) exit(1);
 
     puts("\n");
 
     /*We multiply the matrices*/
-    for(i=0; i<N; i++){
-        for (j=0; j<Z; j++){
-            D[i][j]=0;
-            for (y=0; y<M; y++){
-                D[i][j] += A[i][y]*C[y][j];
+    for (l=0; l<R; l++){
+        for (p=0; p<Z; p++){
+            D[l][p]=0;
+            for (y=0; y<H; y++){
+                D[l][p] += B[l][y]*C[y][p];
             }
         }
     }
@@ -117,9 +146,9 @@ int main(int argc, char *argv[])
     printf("Result:");
 
     /*Output the result*/
-    for (i=0; i<N; i++){
-        for (j=0; j<Z; j++){
-            printf("\t%d", *(*(D+i)+j));
+    for (l=0; l<R; l++){
+        for (p=0; p<Z; p++){
+            printf("\t%d", *(*(D+l)+p));
         }
         puts("\n");
     }
@@ -127,10 +156,18 @@ int main(int argc, char *argv[])
     /*Freeing memory*/
     for (i=0; i<N; i++){
         free(A[i]);
-        free(C[i]);
-        free(D[i]);
     }
     free(A);
+
+    for (l=0; l<N; l++){
+        free(B[l]);
+    }
+    free(B);
+
+    for (l=0; l<R; l++){
+        free(C[l]);
+        free(D[l]);
+    }
     free(C);
     free(D);
 
