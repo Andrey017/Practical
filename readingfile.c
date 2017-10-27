@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 
     /*The file name is not set*/
     if (argc == 1){
-        printf("ERROR");
+        printf("Enter file name");
     }
 
     /*Open the file*/
