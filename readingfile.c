@@ -16,23 +16,27 @@ int main(int argc, char *argv[])
 
     /*The file name is not set*/
     if (argc == 1){
-        printf("Enter file name");
+        printf("Enter the file name");
     }
 
     /*Open the file*/
-    while (fread(&p, sizeof(struct paket), 1, pFile)) {
-        printf("%d %s %f\n", p.i, p.m, p.f);
+    else{
+
+        while (fread(&p, sizeof(struct paket), 1, pFile)) {
+            printf("%d %s %f\n", p.i, p.m, p.f);
+        }
+
+        puts("\n");
+
+        /*File size*/
+        fseek(pFile, 0, SEEK_END);
+        size = ftell(pFile);
+        fseek(pFile, 0, SEEK_SET);
+        printf("File size: %ld", size);
+
+        fclose(pFile);
+
     }
-
-    puts("\n");
-
-    /*File size*/
-    fseek(pFile, 0, SEEK_END);
-    size = ftell(pFile);
-    fseek(pFile, 0, SEEK_SET);
-    printf("File size: %ld", size);
-
-    fclose(pFile);
 
     return 0;
 }
