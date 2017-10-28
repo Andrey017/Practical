@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
         fseek(pFile, 0, SEEK_END);
         size = ftell(pFile);
         fseek(pFile, 0, SEEK_SET);
-        printf("File size: %ld", size);
+        printf("File size: %ld%s", size, "\tbytes");
 
         fclose(pFile);
 
