@@ -1,24 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int **A;
+int **B;
+int **C;
+int **D;
 
 int main(int argc, char *argv[])
 {
-    int N, M, i, j, t, k, s, min, di, dj, R, H, Z, y, l=0, p=0, o;
+    int N, M, i, j, t, k, s, min, di, dj, R, H, Z, y, l=0, p=0;
+    if (argc != 3){
+        printf("Not enough parameters");
+        printf("\nmatrix <number of lines> <number of columns>");
+        exit(1);
+    }
     N= atoi(argv[1]);
     M= atoi(argv[2]);
+    if (N==0 || M==0) exit(1);
     R=N-1;
     H=M-1;
-    o= argc;
 
     /*Creating the first array*/
-    int **A = (int **) malloc(sizeof(int)*N);
+    A = (int **) malloc(sizeof(int)*N);
             for (i=0; i<N; i++){
                 A[i]=(int*)malloc(sizeof(int*)*M);
             }
-        if(A == NULL) exit(1);
+        if(A == NULL){
+            printf("Unable to allocate memory");
+            exit(1);
+        }
 
-    if (N>3 & M>4){
+    if (N>3){
+        if (M>4){
         for (i=0; i<N; i++){
             for (j=0; j<M; j++){
                 A[i][j]= (rand()&(20 - 10 +1));
@@ -26,6 +39,7 @@ int main(int argc, char *argv[])
             }
             puts("\n");
         }
+    }
     }
     else{
         printf("Incorrect parameters");
@@ -70,13 +84,15 @@ int main(int argc, char *argv[])
             }
         }
     }
-    min=o;
     /*Delete the row and the column with the smallest element*/
-    int **B = (int **) malloc(sizeof(int)*N);
+    B = (int **) malloc(sizeof(int)*N);
             for (l=0; l<N; l++){
                 B[l]=(int*)malloc(sizeof(int*)*M);
             }
-        if(B == NULL) exit(1);
+        if(B == NULL){
+            printf("Unable to allocate memory");
+            exit(1);
+        }
 
     l=0;
     p=0;
@@ -109,11 +125,14 @@ int main(int argc, char *argv[])
     printf("\n");
 
     /*We introduce the second matrix*/
-    int    **C = (int **) malloc(sizeof(int)*H);
-            for (l=0; l<H; l++){
-                C[l]= (int*) malloc(sizeof(int*)*Z);
-            }
-            if(C == NULL) exit(1);
+    C = (int **) malloc(sizeof(int)*H);
+        for (l=0; l<H; l++){
+            C[l]= (int*) malloc(sizeof(int*)*Z);
+        }
+        if(C == NULL){
+            printf("Unable to allocate memory");
+            exit(1);
+        }
 
 
     for (l=0; l<H; l++){
@@ -125,11 +144,14 @@ int main(int argc, char *argv[])
     }
 
 
-int    **D = (int **) malloc(sizeof(int)*R);
+    D = (int **) malloc(sizeof(int)*R);
     for (l=0; l<R; l++){
         D[l]= (int*) malloc(sizeof(int*)*Z);
     }
-    if (D == NULL) exit(1);
+    if (D == NULL){
+        printf("Unable to allocate memory");
+        exit(1);
+    }
 
     puts("\n");
 
