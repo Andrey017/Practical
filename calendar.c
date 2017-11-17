@@ -2,19 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-/* January - 01     Воскресение - 0
- * February - 02    Понедельник - 1
- * March - 03       Вторник - 2
- * April - 04       Среда - 3
- * May - 05         Четверг - 4
- * June - 06        Пятница - 5
- * July - 07        Суббота - 6
- * August - 08
- * September - 09
- * October - 10
- * November - 11
- * December - 12*/
-
 int main()
 {
     int d, m, g, w, c, y, a, b, y1, c1, c2, n;
@@ -24,8 +11,8 @@ int main()
 
     c= g;
     g= g/100;
-    y= g;   //Столетие
-    c= c-100*g; //Год в столетие
+    y= g;
+    c= c-100*g;
 
     switch(m){
     case 1:
