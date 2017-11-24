@@ -4,25 +4,22 @@
 
 int main()
 {
-    int d, m, g, w, c, y, a, b, y1, c1, c2, n;
+    int d, m, g, w, c, y, a, b;
 
     printf("Enter the date in the format dd mm yyyy");
     scanf("%d %d %d", &d, &m, &g);
 
-    c= g;
-    g= g/100;
     y= g;
-    c= c-100*g;
+    g= g/100;
+    c= g;
+    y= y-100*g;
 
     switch(m){
     case 1:
         a= 0;
-        c= c-1;
-        m= 11;
         break;
     case 2:
         a= 3;
-        c= c-1;
         break;
     case 3:
         a= 2;
@@ -59,21 +56,11 @@ int main()
         break;
     }
 
-    y1= y/4;
-    c1= c/4;
-    c2= 2*c;
+    b=(y+(y/4)+(c/4)-2*c)%7;
 
-    b=(y+y1+c1-c2);
+    w = ( d+ a + b ) % 7;
 
-    w= (d + a + b);
-
-    n= (int)(modf(((float)w/7), NULL)*10);
-    if (n == 7 | n == 8 | n == 9){
-        printf("Sunday");
-    }
-
-    else {
-    switch(n){
+    switch(w){
     case 0:
         printf("Sunday");
         break;
@@ -99,6 +86,6 @@ int main()
         printf("The error calculation. Try again");
         break;
     }
-}
+
     return 0;
 }
