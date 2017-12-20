@@ -29,8 +29,7 @@ int main(int argc, char *argv[])
     stack =(int *) malloc ( sizeof(int) * k );  /*Selecting memory*/
     if ( stack == NULL ) exit (1);
 
-    for( i = 1; i < k; i++ )
-    {
+    for( i = 1; i < k; i++ ){
         switch ( (char) argv[i][0] ){   /*Collating operation type*/
         case '\n':
             break;
